@@ -2,22 +2,30 @@ package com.epam.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name="NEWS")
 public class News {
-    private int id;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private long id;
+    @Column(name="TITLE")
     private String title;
-
+    @Column(name="DATE")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
+    @Column(name="BRIEF")
     private String brief;
+    @Column(name="CONTENT")
     private String content;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
