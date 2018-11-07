@@ -9,11 +9,10 @@ import java.util.Date;
 @Table(name="NEWS")
 public class News {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     @Column(name="TITLE")
     private String title;
-    @Column(name="DATE")
+    @Column(name="NEWS_DATE")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
     @Column(name="BRIEF")

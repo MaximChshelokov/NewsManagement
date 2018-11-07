@@ -19,6 +19,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <spring.ver>5.1.1.RELEASE</spring.ver>
+        <spring.data.ver>2.1.1.RELEASE</spring.data.ver>
         <hibernate.ver>5.3.7.Final</hibernate.ver>
     </properties>
 
@@ -61,6 +62,18 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.ver}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring.data.ver}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.ver}</version>
@@ -90,7 +103,7 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>src</sourceDirectory>
+        <sourceDirectory>src/main/java</sourceDirectory>
         <finalName>testapp</finalName>
         <plugins>
             <plugin>
