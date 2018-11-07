@@ -5,14 +5,18 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Repository
+@Transactional
 public class NewsDaoImpl implements NewsDao {
-    @Autowired
+
     private SessionFactory sessionFactory;
 
     @Override
@@ -53,5 +57,10 @@ public class NewsDaoImpl implements NewsDao {
         Session session = sessionFactory.getCurrentSession();
         News news = session.byId(News.class).load(id);
         session.delete(news);
+    }
+
+    @Autowired
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 }

@@ -25,7 +25,7 @@ public class NewsController {
     @RequestMapping(value="/add-news", method=RequestMethod.POST)
     public String addStudent(@ModelAttribute("SpringWeb")News news, ModelMap model) {
         model.addAttribute("news", news);
-        newsService.addNews(news);
+        newsService.add(news);
         return ViewConstants.NEWS_VIEW;
     }
 
