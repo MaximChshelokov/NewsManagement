@@ -6,7 +6,7 @@
 
    <body>
       <h2>Add news</h2>
-      <form:form method = "POST" action = "/add-news.do">
+      <form:form method = "POST" action = "./add-news.do">
          <table>
             <tr>
                <td><form:label path = "title">News Title</form:label></td>

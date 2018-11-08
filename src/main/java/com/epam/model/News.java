@@ -1,8 +1,10 @@
 package com.epam.model;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -11,13 +13,17 @@ public class News {
     @Id
     private long id;
     @Column(name="TITLE")
+    @NotBlank(message="{validation.title.null.message}")
+    @Size(min=2, max=60, message="{}validation.title.size.message")
     private String title;
     @Column(name="NEWS_DATE")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
     @Column(name="BRIEF")
+    @Size(min=2, max=200, message="{validation.brief.size.message}")
     private String brief;
     @Column(name="CONTENT")
+    @Size(min=2, max=2000, message="{validation.content.size.message}")
     private String content;
 
     public long getId() {
