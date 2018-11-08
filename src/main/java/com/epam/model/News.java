@@ -14,7 +14,7 @@ public class News {
     private long id;
     @Column(name="TITLE")
     @NotBlank(message="{validation.title.null.message}")
-    @Size(min=2, max=60, message="{}validation.title.size.message")
+    @Size(min=2, max=60, message="{validation.title.size.message}")
     private String title;
     @Column(name="NEWS_DATE")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
