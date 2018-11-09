@@ -5,11 +5,13 @@ import com.epam.model.News;
 import com.epam.service.NewsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Controller
 public class NewsController {
@@ -18,12 +20,16 @@ public class NewsController {
     private NewsServiceImpl newsService;
 
     @RequestMapping(value="/add-news-form", method=RequestMethod.GET)
-    public ModelAndView drawNewsForm() {
-        return new ModelAndView(ViewConstants.ADD_NEWS, "command", new News());
+    public String drawNewsForm(News news, Model model) {
+        model.addAttribute("news", news);
+        return ViewConstants.ADD_NEWS;
     }
 
     @RequestMapping(value="/add-news", method=RequestMethod.POST)
-    public String addStudent(@ModelAttribute("SpringWeb")News news, ModelMap model) {
+    public String addStudent(@Valid News news,
+                             BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors())
+            return ViewConstants.ADD_NEWS;
         model.addAttribute("news", news);
         newsService.add(news);
         return ViewConstants.NEWS_VIEW;
