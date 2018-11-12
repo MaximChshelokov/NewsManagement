@@ -11,6 +11,8 @@ import java.util.Date;
 @Table(name="NEWS")
 public class News {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "NEWS_SEQ")
+    @SequenceGenerator(name="NEWS_SEQ", sequenceName="NEWS_SEQ1",allocationSize=1)
     private long id;
 
     @Column(name="TITLE")

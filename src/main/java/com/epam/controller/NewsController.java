@@ -2,38 +2,34 @@ package com.epam.controller;
 
 import com.epam.controller.consts.ViewConstants;
 import com.epam.model.News;
-import com.epam.service.NewsServiceImpl;
+import com.epam.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
 public class NewsController {
 
-    private NewsServiceImpl newsService;
+    private static final String NEWS = "news";
+    private NewsService newsService;
 
-    @GetMapping("/add-news-form")
+    @GetMapping("/add-news")
     public String drawNewsForm(News news, Model model) {
-        model.addAttribute("news", news);
+        model.addAttribute(NEWS, news);
         return ViewConstants.ADD_NEWS;
     }
 
     @PostMapping("/add-news")
     public String addStudent(@Valid News news,
-                             BindingResult bindingResult, Model model) {
+                             BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return ViewConstants.ADD_NEWS;
-        model.addAttribute("news", news);
         newsService.add(news);
-        return ViewConstants.NEWS_VIEW;
+        return "forward:/view-news.do?id=" + news.getId();
     }
 
     @RequestMapping(value="/news-list")
@@ -42,8 +38,30 @@ public class NewsController {
         return ViewConstants.NEWS_LIST;
     }
 
+    @GetMapping("/edit-news")
+    public String editNewsForm(@RequestParam("id") long id, Model model) {
+        model.addAttribute(NEWS, newsService.get(id));
+        return ViewConstants.EDIT_NEWS;
+    }
+
+    @PostMapping("/edit-news")
+    public String updateNews(@Valid News news,
+                             @RequestParam("id") long id,
+                             BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return ViewConstants.EDIT_NEWS;
+        newsService.update(id, news);
+        return "forward:/view-news.do";
+    }
+
+    @RequestMapping("/view-news")
+    public String viewNews(@RequestParam("id") long id, Model model) {
+        model.addAttribute(NEWS, newsService.get(id));
+        return ViewConstants.NEWS_VIEW;
+    }
+
     @Autowired
-    public void setNewsService(NewsServiceImpl newsService) {
+    public void setNewsService(NewsService newsService) {
         this.newsService = newsService;
     }
 }

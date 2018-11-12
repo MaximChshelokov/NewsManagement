@@ -1,5 +1,6 @@
 <%@page contentType = "text/html;charset = UTF-8" language = "java" %>
 <%@page isELIgnored = "false" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <html>
    <head>
       <title><spring:message code="application.title"/></title>
@@ -9,7 +10,7 @@
       <h2><spring:message code="application.view-news.title"/></h2>
       <table>
          <tr>
-            <td><spring:message code="application.add-news.title"/></td>
+            <td><spring:message code="application.common.title"/></td>
             <td>${news.title}</td>
          </tr>
          <tr>
