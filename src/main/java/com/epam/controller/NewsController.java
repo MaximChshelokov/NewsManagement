@@ -9,12 +9,15 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.validation.Valid;
 
 @Controller
 public class NewsController {
 
     private static final String NEWS = "news";
+    private static final String REDIRECT_VIEW_NEWS = "redirect:/view-news.do";
     private NewsService newsService;
 
     @GetMapping("/add-news")
@@ -24,15 +27,15 @@ public class NewsController {
     }
 
     @PostMapping("/add-news")
-    public String addStudent(@Valid News news,
-                             BindingResult bindingResult) {
+    public String addStudent(@Valid News news, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors())
             return ViewConstants.ADD_NEWS;
         newsService.add(news);
-        return "forward:/view-news.do?id=" + news.getId();
+        redirectAttributes.addAttribute("id", news.getId());
+        return REDIRECT_VIEW_NEWS;
     }
 
-    @RequestMapping(value="/news-list")
+    @RequestMapping("/news-list")
     public String getNewsList(ModelMap model) {
         model.addAttribute("newsList", newsService.getAll());
         return ViewConstants.NEWS_LIST;
@@ -45,13 +48,13 @@ public class NewsController {
     }
 
     @PostMapping("/edit-news")
-    public String updateNews(@Valid News news,
-                             @RequestParam("id") long id,
-                             BindingResult bindingResult) {
+    public String updateNews(@Valid News news, @RequestParam("id") long id, BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors())
             return ViewConstants.EDIT_NEWS;
         newsService.update(id, news);
-        return "forward:/view-news.do";
+        redirectAttributes.addAttribute("id", news.getId());
+        return REDIRECT_VIEW_NEWS;
     }
 
     @RequestMapping("/view-news")
@@ -63,5 +66,9 @@ public class NewsController {
     @Autowired
     public void setNewsService(NewsService newsService) {
         this.newsService = newsService;
+    }
+
+    private String urlWithId(String url, long id) {
+        return String.format("%s?id=%d", url, id);
     }
 }
