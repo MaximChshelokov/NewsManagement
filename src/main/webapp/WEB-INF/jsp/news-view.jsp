@@ -2,26 +2,26 @@
 <%@page isELIgnored = "false" %>
 <html>
    <head>
-      <title>News manager</title>
+      <title><spring:message code="application.title"/></title>
    </head>
 
    <body>
-      <h2>News View</h2>
+      <h2><spring:message code="application.view-news.title"/></h2>
       <table>
          <tr>
-            <td>Title</td>
+            <td><spring:message code="application.add-news.title"/></td>
             <td>${news.title}</td>
          </tr>
          <tr>
-            <td>Date</td>
+            <td><spring:message code="application.common.date"/></td>
             <td>${news.date}</td>
          </tr>
          <tr>
-            <td>Brief</td>
+            <td><spring:message code="application.common.brief"/></td>
             <td>${news.brief}</td>
          </tr>
          <tr>
-            <td>Content</td>
+            <td><spring:message code="application.common.content"/></td>
             <td>${news.content}</td>
          </tr>
       </table>

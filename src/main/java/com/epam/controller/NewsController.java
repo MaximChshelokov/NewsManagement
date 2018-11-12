@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -16,16 +18,15 @@ import javax.validation.Valid;
 @Controller
 public class NewsController {
 
-    @Autowired
     private NewsServiceImpl newsService;
 
-    @RequestMapping(value="/add-news-form", method=RequestMethod.GET)
+    @GetMapping("/add-news-form")
     public String drawNewsForm(News news, Model model) {
         model.addAttribute("news", news);
         return ViewConstants.ADD_NEWS;
     }
 
-    @RequestMapping(value="/add-news", method=RequestMethod.POST)
+    @PostMapping("/add-news")
     public String addStudent(@Valid News news,
                              BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors())
@@ -41,4 +42,8 @@ public class NewsController {
         return ViewConstants.NEWS_LIST;
     }
 
+    @Autowired
+    public void setNewsService(NewsServiceImpl newsService) {
+        this.newsService = newsService;
+    }
 }

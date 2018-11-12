@@ -149,6 +149,8 @@
                     <server>mytomcat7</server>
                     <port>8080</port>
                     <path>/testapp</path>
+                    <charset>UTF-8</charset>
+                    <uriEncoding>UTF-8</uriEncoding>
                 </configuration>
             </plugin>
         </plugins>
