@@ -3,7 +3,6 @@ package com.epam.service;
 
 import com.epam.dao.NewsDao;
 import com.epam.model.News;
-import com.epam.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +35,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     @Transactional
     public void update(long id, News news) {
-        newsDao.update(id, news) ;
+        newsDao.update(id, news);
     }
 
     @Override

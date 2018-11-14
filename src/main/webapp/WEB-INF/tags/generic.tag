@@ -59,10 +59,6 @@
 		<header>
 			<div class="width">
 				<h2><jsp:invoke fragment="title"/></h2>
-<!--				<div class="tagline">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tristique neque at tellus interdum euismod. Quisque suscipit quam luctus quam elementum a molestie diam sollicitudin. Nam vehicula placerat mi, in mollis elit imperdiet in. Sed volutpat tincidunt sem at auctor</p>
-				</div>
-				-->
 			</div>
 		</header>
 		<section id="body" class="width clear">

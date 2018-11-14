@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.validation.Valid;
 
 @Controller
@@ -32,7 +33,7 @@ public class NewsController {
             return ViewConstants.ADD_NEWS;
         newsService.add(news);
         redirectAttributes.addAttribute("id", news.getId());
-        return REDIRECT_NEWS_LIST;
+        return REDIRECT_VIEW_NEWS;
     }
 
     @RequestMapping("/news-list")
@@ -54,7 +55,7 @@ public class NewsController {
             return ViewConstants.EDIT_NEWS;
         newsService.update(id, news);
         redirectAttributes.addAttribute("id", news.getId());
-        return REDIRECT_NEWS_LIST;
+        return REDIRECT_VIEW_NEWS;
     }
 
     @RequestMapping("/view-news/{id}")
