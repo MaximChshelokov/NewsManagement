@@ -13,4 +13,6 @@ public interface NewsService {
     News get(long id);
 
     void update(long id, News news);
+
+    void delete(long id);
 }

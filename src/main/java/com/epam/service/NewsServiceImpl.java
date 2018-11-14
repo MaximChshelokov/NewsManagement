@@ -39,6 +39,12 @@ public class NewsServiceImpl implements NewsService {
         newsDao.update(id, news) ;
     }
 
+    @Override
+    @Transactional
+    public void delete(long id) {
+        newsDao.delete(id);
+    }
+
     @Autowired
     public void setRepository(NewsDao newsDao) {
         this.newsDao = newsDao;

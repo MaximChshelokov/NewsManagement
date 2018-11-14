@@ -10,14 +10,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.validation.Valid;
 
 @Controller
 public class NewsController {
 
     private static final String NEWS = "news";
-    private static final String REDIRECT_VIEW_NEWS = "redirect:/view-news.do";
+    private static final String REDIRECT_VIEW_NEWS = "redirect:/view-news";
+    private static final String REDIRECT_NEWS_LIST = "redirect:/news-list";
     private NewsService newsService;
 
     @GetMapping("/add-news")
@@ -32,7 +32,7 @@ public class NewsController {
             return ViewConstants.ADD_NEWS;
         newsService.add(news);
         redirectAttributes.addAttribute("id", news.getId());
-        return REDIRECT_VIEW_NEWS;
+        return REDIRECT_NEWS_LIST;
     }
 
     @RequestMapping("/news-list")
@@ -41,34 +41,36 @@ public class NewsController {
         return ViewConstants.NEWS_LIST;
     }
 
-    @GetMapping("/edit-news")
-    public String editNewsForm(@RequestParam("id") long id, Model model) {
+    @GetMapping("/edit-news/{id}")
+    public String editNewsForm(@PathVariable("id") long id, Model model) {
         model.addAttribute(NEWS, newsService.get(id));
         return ViewConstants.EDIT_NEWS;
     }
 
-    @PostMapping("/edit-news")
-    public String updateNews(@Valid News news, @RequestParam("id") long id, BindingResult bindingResult,
+    @PostMapping("/edit-news/{id}")
+    public String updateNews(@Valid News news, BindingResult bindingResult, @PathVariable("id") long id,
                              RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors())
             return ViewConstants.EDIT_NEWS;
         newsService.update(id, news);
         redirectAttributes.addAttribute("id", news.getId());
-        return REDIRECT_VIEW_NEWS;
+        return REDIRECT_NEWS_LIST;
     }
 
-    @RequestMapping("/view-news")
-    public String viewNews(@RequestParam("id") long id, Model model) {
+    @RequestMapping("/view-news/{id}")
+    public String viewNews(@PathVariable("id") long id, Model model) {
         model.addAttribute(NEWS, newsService.get(id));
         return ViewConstants.NEWS_VIEW;
+    }
+
+    @RequestMapping("/delete-news/{id}")
+    public String deleteNews(@PathVariable("id") long id) {
+        newsService.delete(id);
+        return REDIRECT_NEWS_LIST;
     }
 
     @Autowired
     public void setNewsService(NewsService newsService) {
         this.newsService = newsService;
-    }
-
-    private String urlWithId(String url, long id) {
-        return String.format("%s?id=%d", url, id);
     }
 }
