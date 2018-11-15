@@ -1,35 +1,14 @@
 package com.epam.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import javax.persistence.*;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
-import java.time.format.DateTimeFormatter;
+
 import java.util.Date;
 
-@Entity
-@Table(name = "NEWS")
 public class News {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "NEWS_SEQ")
-    @SequenceGenerator(name = "NEWS_SEQ", sequenceName = "NEWS_SEQ", allocationSize = 1)
     private long id;
-
-    @Column(name = "TITLE")
-    @Size(min = 2, max = 60, message = "{validation.title.size}")
     private String title;
-
-    @Column(name = "NEWS_DATE")
-    @DateTimeFormat(pattern = "${date.pattern}")
-    @Past(message = "{validation.date.past}")
     private Date date;
-
-    @Column(name = "BRIEF")
-    @Size(min = 2, max = 200, message = "{validation.brief.size}")
     private String brief;
-
-    @Column(name = "CONTENT")
-    @Size(min = 2, max = 2000, message = "{validation.content.size}")
     private String content;
 
     public long getId() {
@@ -48,6 +27,7 @@ public class News {
         this.title = title;
     }
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public Date getDate() {
         return date;
     }
