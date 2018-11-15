@@ -13,12 +13,12 @@
    http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
     <mvc:annotation-driven validator="validator"/>
-    <context:component-scan base-package = "com.epam.controller" />
-    <mvc:default-servlet-handler />
+    <context:component-scan base-package="com.epam.controller"/>
+    <mvc:default-servlet-handler/>
 
-    <bean class = "org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name = "prefix" value = "/WEB-INF/jsp/" />
-        <property name = "suffix" value = ".jsp" />
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
         <property name="exposedContextBeanNames">
             <list>
                 <value>navigationMenu</value>
@@ -26,9 +26,9 @@
         </property>
     </bean>
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name = "basename" value="classpath:messages"/>
-        <property name = "fallbackToSystemLocale" value ="false"/>
-        <property name = "defaultEncoding" value = "UTF-8"/>
+        <property name="basename" value="classpath:messages"/>
+        <property name="fallbackToSystemLocale" value="false"/>
+        <property name="defaultEncoding" value="UTF-8"/>
     </bean>
 
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
@@ -42,7 +42,7 @@
     </mvc:interceptors>
 
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
-        <property name="defaultLocale" value="ru"/>
+        <property name="defaultLocale" value="#{T(java.util.Locale).US}"/>
     </bean>
 
     <util:list id="navigationMenu">
@@ -50,9 +50,9 @@
         <value>#{{"url":"add-news", "name":"application.add-news.title"}}</value>
     </util:list>
 
-<!--
-    <mvc:resources mapping="/**" location="/"
-                   cache-period="31556926"/>
--->
-    <!--#{T(java.util.Locale).US}<beans:annotation-driven conversion-service="typeConversionService" validator="validator"/>-->
+    <!--
+        <mvc:resources mapping="/**" location="/"
+                       cache-period="31556926"/>
+    -->
+    <!--<beans:annotation-driven conversion-service="typeConversionService" validator="validator"/>-->
 </beans>

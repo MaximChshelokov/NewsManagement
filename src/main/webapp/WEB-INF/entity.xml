@@ -10,7 +10,7 @@ http://java.sun.com/xml/ns/persistence/orm_1_0.xsd"
             <id name="id">
                 <column name="ID"/>
                 <generated-value strategy="SEQUENCE" generator="NEWS_SEQ"/>
-                <sequence-generator name="NEWS_SEQ" sequence-name="NEWS_SEQ1"/>
+                <sequence-generator name="NEWS_SEQ" sequence-name="NEWS_SEQ"/>
             </id>
             <basic name="title">
                 <column name="TITLE"/>

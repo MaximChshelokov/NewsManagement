@@ -13,7 +13,6 @@
          http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 <!--    <jpa:repositories base-package="com.epam.repository"/>  -->
-    <context:property-placeholder location="classpath:db.properties" ignore-unresolvable="true"/>
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
