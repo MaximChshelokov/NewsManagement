@@ -18,6 +18,7 @@ public class NewsController {
     private static final String NEWS = "news";
     private static final String REDIRECT_VIEW_NEWS = "redirect:/view-news";
     private static final String REDIRECT_NEWS_LIST = "redirect:/news-list";
+    public static final String ID = "id";
     private NewsService newsService;
 
     @GetMapping("/add-news")
@@ -31,8 +32,8 @@ public class NewsController {
         if (bindingResult.hasErrors())
             return ViewConstants.ADD_NEWS;
         newsService.add(news);
-        redirectAttributes.addAttribute("id", news.getId());
-        return REDIRECT_NEWS_LIST;
+        redirectAttributes.addAttribute(ID, news.getId());
+        return REDIRECT_VIEW_NEWS;
     }
 
     @RequestMapping("/news-list")
@@ -42,29 +43,29 @@ public class NewsController {
     }
 
     @GetMapping("/edit-news/{id}")
-    public String editNewsForm(@PathVariable("id") long id, Model model) {
+    public String editNewsForm(@PathVariable(ID) long id, Model model) {
         model.addAttribute(NEWS, newsService.get(id));
         return ViewConstants.EDIT_NEWS;
     }
 
     @PostMapping("/edit-news/{id}")
-    public String updateNews(@Valid News news, BindingResult bindingResult, @PathVariable("id") long id,
+    public String updateNews(@Valid News news, BindingResult bindingResult, @PathVariable(ID) long id,
                              RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors())
             return ViewConstants.EDIT_NEWS;
         newsService.update(id, news);
-        redirectAttributes.addAttribute("id", news.getId());
-        return REDIRECT_NEWS_LIST;
+        redirectAttributes.addAttribute(ID, news.getId());
+        return REDIRECT_VIEW_NEWS;
     }
 
     @RequestMapping("/view-news/{id}")
-    public String viewNews(@PathVariable("id") long id, Model model) {
+    public String viewNews(@PathVariable(ID) long id, Model model) {
         model.addAttribute(NEWS, newsService.get(id));
         return ViewConstants.NEWS_VIEW;
     }
 
     @RequestMapping("/delete-news/{id}")
-    public String deleteNews(@PathVariable("id") long id) {
+    public String deleteNews(@PathVariable(ID) long id) {
         newsService.delete(id);
         return REDIRECT_NEWS_LIST;
     }
