@@ -7,11 +7,15 @@ import javax.persistence.*;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @Entity
 @Table(name = "NEWS")
 @PropertySource("classpath:format.properties")
 public class News {
+   public final static String DATE_FORMAT="yyyy-MM-dd";
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "NEWS_SEQ")
     @SequenceGenerator(name = "NEWS_SEQ", sequenceName = "NEWS_SEQ", allocationSize = 1)
@@ -22,7 +26,7 @@ public class News {
     private String title;
 
     @Column(name = "NEWS_DATE")
-    @DateTimeFormat(pattern = "${date.pattern}")
+    @DateTimeFormat(pattern = DATE_FORMAT)
     @Past(message = "{validation.date.past}")
     private Date date= new Date();
 
