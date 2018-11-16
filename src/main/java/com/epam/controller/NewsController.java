@@ -24,6 +24,11 @@ public class NewsController {
     private static final String REDIRECT_NEWS_LIST = "redirect:/news-list";
     private NewsService newsService;
 
+    @RequestMapping("/")
+    public String redirectToNewsList() {
+        return REDIRECT_NEWS_LIST;
+    }
+
     @GetMapping("/add-news")
     public String drawNewsForm(News news, Model model) {
         model.addAttribute(NEWS, news);
@@ -35,8 +40,7 @@ public class NewsController {
         if (bindingResult.hasErrors())
             return ViewConstants.ADD_NEWS;
         newsService.add(news);
-        redirectAttributes.addAttribute("id", news.getId());
-        return REDIRECT_VIEW_NEWS;
+        return REDIRECT_VIEW_NEWS + '/' + news.getId();
     }
 
     @RequestMapping("/news-list")
@@ -59,7 +63,7 @@ public class NewsController {
         LocalSessionFactoryBean bean;
         newsService.update(id, news);
         redirectAttributes.addAttribute("id", news.getId());
-        return REDIRECT_VIEW_NEWS;
+        return REDIRECT_VIEW_NEWS + '/' + news.getId();
     }
 
     @RequestMapping("/view-news/{id}")

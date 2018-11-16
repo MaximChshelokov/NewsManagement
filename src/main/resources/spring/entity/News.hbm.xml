@@ -5,9 +5,10 @@
 <hibernate-mapping package="com.epam.model">
     <class name="News" table="NEWS">
         <id name="id" column="ID">
-            <generator class="identity"/>
-<!--                <param name="sequence">NEWS_SEQ</param>
-            </generator>-->
+            <generator class="sequence-identity">
+                <param name="sequence">NEWS_SEQ</param>
+                <param name="allocation_size">1</param>
+            </generator>
         </id>
         <property name="title" column="TITLE" />
         <property name="date" type="timestamp" column="NEWS_DATE" />

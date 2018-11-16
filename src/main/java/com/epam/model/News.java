@@ -5,6 +5,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 public class News {
+
+    private static final String DATE_PATTERN = "yyyy-MM-dd";
     private long id;
     private String title;
     private Date date;
@@ -27,7 +29,7 @@ public class News {
         this.title = title;
     }
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = DATE_PATTERN)
     public Date getDate() {
         return date;
     }
