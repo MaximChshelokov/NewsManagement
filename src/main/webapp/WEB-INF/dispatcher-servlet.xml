@@ -49,10 +49,4 @@
         <value>#{{"url":"news-list", "name":"application.news-list.title"}}</value>
         <value>#{{"url":"add-news", "name":"application.add-news.title"}}</value>
     </util:list>
-
-    <!--
-        <mvc:resources mapping="/**" location="/"
-                       cache-period="31556926"/>
-    -->
-    <!--<beans:annotation-driven conversion-service="typeConversionService" validator="validator"/>-->
 </beans>
