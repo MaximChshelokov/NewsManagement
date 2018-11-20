@@ -15,10 +15,6 @@
     </bean>
 
     <bean id="service" class="com.epam.service.NewsServiceImpl">
-        <property name="newsDao" ref="dao"/>
-    </bean>
-
-    <bean class="com.epam.controller.NewsController">
-        <property name="newsService" ref="service"/>
+        <property name="repository" ref="dao"/>
     </bean>
 </beans>
