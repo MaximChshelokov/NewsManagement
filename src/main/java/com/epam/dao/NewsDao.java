@@ -5,6 +5,7 @@ import com.epam.model.News;
 import java.util.List;
 
 public interface NewsDao {
+
     long save(News news);
 
     News get(long id);

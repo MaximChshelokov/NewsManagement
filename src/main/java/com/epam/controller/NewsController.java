@@ -4,7 +4,6 @@ import com.epam.controller.consts.ViewConstants;
 import com.epam.model.News;
 import com.epam.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.validation.Valid;
 
 @Controller
@@ -36,9 +36,12 @@ public class NewsController {
     }
 
     @PostMapping("/add-news")
-    public String addStudent(@Valid News news, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors())
+    public String addStudent(
+        @Valid
+            News news, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return ViewConstants.ADD_NEWS;
+        }
         newsService.add(news);
         return REDIRECT_VIEW_NEWS + '/' + news.getId();
     }
@@ -50,30 +53,40 @@ public class NewsController {
     }
 
     @GetMapping("/edit-news/{id}")
-    public String editNewsForm(@PathVariable("id") long id, Model model) {
+    public String editNewsForm(
+        @PathVariable("id")
+            long id, Model model) {
         model.addAttribute(NEWS, newsService.get(id));
         return ViewConstants.EDIT_NEWS;
     }
 
     @PostMapping("/edit-news/{id}")
-    public String updateNews(@Valid News news, BindingResult bindingResult, @PathVariable("id") long id,
-                             RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors())
+    public String updateNews(
+        @Valid
+            News news, BindingResult bindingResult,
+        @PathVariable("id")
+            long id,
+        RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
             return ViewConstants.EDIT_NEWS;
-        LocalSessionFactoryBean bean;
+        }
         newsService.update(id, news);
         redirectAttributes.addAttribute("id", news.getId());
         return REDIRECT_VIEW_NEWS + '/' + news.getId();
     }
 
     @RequestMapping("/view-news/{id}")
-    public String viewNews(@PathVariable("id") long id, Model model) {
+    public String viewNews(
+        @PathVariable("id")
+            long id, Model model) {
         model.addAttribute(NEWS, newsService.get(id));
         return ViewConstants.NEWS_VIEW;
     }
 
     @RequestMapping("/delete-news/{id}")
-    public String deleteNews(@PathVariable("id") long id) {
+    public String deleteNews(
+        @PathVariable("id")
+            long id) {
         newsService.delete(id);
         return REDIRECT_NEWS_LIST;
     }
