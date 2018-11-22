@@ -4,4 +4,7 @@ angular.module('NewsManager', [])
         then(function(response) {
             $scope.news_list = response.data;
         });
+    })
+    .controller('NewsView', function($scope, $http){
+        $http.get
     });

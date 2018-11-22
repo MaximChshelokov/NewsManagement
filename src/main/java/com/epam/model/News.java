@@ -1,5 +1,6 @@
 package com.epam.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -30,6 +31,7 @@ public class News {
     }
 
     @DateTimeFormat(pattern = DATE_PATTERN)
+    @JsonFormat(pattern=DATE_PATTERN)
     public Date getDate() {
         return date;
     }

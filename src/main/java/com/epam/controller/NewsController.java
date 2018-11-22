@@ -66,13 +66,11 @@ public class NewsController {
         @Valid
             News news, BindingResult bindingResult,
         @PathVariable("id")
-            long id,
-        RedirectAttributes redirectAttributes) {
+            long id) {
         if (bindingResult.hasErrors()) {
             return ViewConstants.EDIT_NEWS;
         }
         newsService.update(id, news);
-        redirectAttributes.addAttribute("id", news.getId());
         return REDIRECT_VIEW_NEWS + '/' + news.getId();
     }
 

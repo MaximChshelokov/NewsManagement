@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,6 +48,18 @@ public class RestNewsController {
             return new ResponseEntity(bindingResult, HttpStatus.NOT_ACCEPTABLE);
         }
         newsService.add(news);
+        return new ResponseEntity(news, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity updateNews(
+        @Valid
+            News news, BindingResult bindingResult,
+        @PathVariable("id")
+            long id) {
+        if (bindingResult.hasErrors())
+            return new ResponseEntity(bindingResult, HttpStatus.NOT_ACCEPTABLE);
+        newsService.update(id, news);
         return new ResponseEntity(news, HttpStatus.OK);
     }
 
