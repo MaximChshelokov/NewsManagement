@@ -22,11 +22,12 @@ public class NewsController {
     private static final String NEWS = "news";
     private static final String REDIRECT_VIEW_NEWS = "redirect:/view-news";
     private static final String REDIRECT_NEWS_LIST = "redirect:/news-list";
+    public static final String ANGULAR_REST = "rest-angular";
     private NewsService newsService;
 
     @RequestMapping("/")
     public String redirectToNewsList() {
-        return REDIRECT_NEWS_LIST;
+        return ANGULAR_REST;
     }
 
     @GetMapping("/add-news")

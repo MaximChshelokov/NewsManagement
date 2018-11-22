@@ -6,7 +6,7 @@
 <%@attribute name="content" fragment="true" %>
 
 <!doctype html>
-<html>
+<html ng-app="NewsManager">
 <head>
     <meta http-equiv="Content-Type" content="text/html; UTF-8"/>
     <title><spring:message code="application.title"/></title>
@@ -14,7 +14,11 @@
         ${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}
     </c:set>
     <spring:url value="/css/styles.css" var="mainCss"/>
+    <spring:url value="/scripts/angular.min.js" var="angular"/>
+    <spring:url value="/scripts/news.data.js" var="newsdata"/>
     <link rel="stylesheet" href="${mainCss}" type="text/css"/>
+    <script src="${angular}"></script>
+    <script src="${newsdata}"></script>
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->

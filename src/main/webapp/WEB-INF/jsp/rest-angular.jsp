@@ -7,15 +7,17 @@
 <t:generic>
     <jsp:attribute name="title"><spring:message code="application.news-list.title"/></jsp:attribute>
     <jsp:attribute name="content">
-          <c:forEach items="${newsList}" var="news">
+        <div ng-controller="NewsList">
+            <div ng-repeat="news in news_list">
              <article class="expanded">
-                 <h2>${news.title}</h2>
+                 <h2>{{news.title}}</h2>
                  <div class="article-info">
                      <spring:message code="application.news-list.posted"/>
-                     <fmt:formatDate dateStyle="SHORT" value="${news.date}"/>
+                     {{news.date}}
                  </div>
-                 <h5><c:out value="${news.brief}"/></h5>
-                 <p><c:out value="${news.content}"/></p>
+                 <h5>{{news.brief}}</h5>
+                 <p>{{news.content}}</p>
+                 <!--
                  <spring:url value="edit-news/${news.id}" var="editUrl"/>
                  <spring:url value="delete-news/${news.id}" var="deleteUrl"/>
                  <spring:url value="view-news/${news.id}" var="viewUrl"/>
@@ -28,7 +30,9 @@
                              code="application.news-list.delete"/></a>
                  </div>
                  <div style="clear: left"/>
+                    -->
              </article>
-          </c:forEach>
-        </jsp:attribute>
+            </div>
+        </div>
+    </jsp:attribute>
 </t:generic>
