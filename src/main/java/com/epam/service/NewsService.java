@@ -10,7 +10,7 @@ public interface NewsService {
 
     List<News> getAll();
 
-    News get(long id);
+    List<News> get(long id);
 
     void update(long id, News news);
 

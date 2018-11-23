@@ -29,26 +29,26 @@ public class RestNewsController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getNews(
+    public ResponseEntity<Object> getNews(
         @PathVariable
             long id) {
-        News news = newsService.get(id);
-        if (news == null) {
-            return new ResponseEntity("Wrong id!", HttpStatus.NOT_FOUND);
+        List newsList = newsService.get(id);
+        if (newsList.isEmpty()) {
+            return new ResponseEntity<>("Wrong id!", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity(news, HttpStatus.OK);
+        return new ResponseEntity<>(newsList, HttpStatus.OK);
     }
 
 
     @PostMapping
-    public ResponseEntity addNews(
+    public ResponseEntity<Object> addNews(
         @Valid
             News news, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity(bindingResult, HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(bindingResult, HttpStatus.NOT_ACCEPTABLE);
         }
         newsService.add(news);
-        return new ResponseEntity(news, HttpStatus.OK);
+        return new ResponseEntity<>(news, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
@@ -58,17 +58,17 @@ public class RestNewsController {
         @PathVariable("id")
             long id) {
         if (bindingResult.hasErrors())
-            return new ResponseEntity(bindingResult, HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(bindingResult, HttpStatus.NOT_ACCEPTABLE);
         newsService.update(id, news);
-        return new ResponseEntity(news, HttpStatus.OK);
+        return new ResponseEntity<>(news, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteNews(
+    public ResponseEntity<Long> deleteNews(
         @PathVariable
             long id) {
         newsService.delete(id);
-        return new ResponseEntity(new Long(id), HttpStatus.OK);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
     @Autowired

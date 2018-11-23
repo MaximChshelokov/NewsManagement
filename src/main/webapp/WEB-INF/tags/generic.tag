@@ -48,6 +48,7 @@
 </head>
 
 <body>
+<div ng-controller="NewsController">
 
 <div id="sitename">
     <div class="width">
@@ -75,14 +76,13 @@
             <li>
                 <h4><spring:message code="application.common.navigate"/></h4>
                 <ul class="blocklist">
-                    <c:forEach items="${navigationMenu}" var="menuItem">
-                        <spring:url value="${menuItem.url}" var="menuUrl" context="true"/>
-                        <li ${fn:contains(pageContext.request.requestURL, menuItem.url)?"class='selected-item'":""}>
-                            <a href="${base}/${menuUrl}"><spring:message code="${menuItem.name}"/></a>
-                        </li>
-                    </c:forEach>
+                    <li class="{{form_class}}">
+                        <a ng-click="showAddNewsForm()">Add news</a>
+                    </li>
+                    <li class="{{view_class}}">
+                        <a ng-click="showAllNews()">List news</a>
+                    </li>
                 </ul>
-
             </li>
         </ul>
     </aside>
@@ -98,5 +98,6 @@
         <p class="right"><a href="http://zypopwebtemplates.com/">Free CSS Templates</a> by ZyPOP</p>
     </div>
 </footer>
+</div>
 </body>
 </html>

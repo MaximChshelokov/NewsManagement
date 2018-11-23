@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 
 @Service("newsServiceImpl")
@@ -28,8 +29,8 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     @Transactional
-    public News get(long id) {
-        return newsDao.get(id);
+    public List<News> get(long id) {
+        return Collections.singletonList(newsDao.get(id));
     }
 
     @Override
