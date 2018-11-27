@@ -5,12 +5,12 @@ import com.epam.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,10 +43,8 @@ public class RestNewsController {
     @PostMapping
     public ResponseEntity<Object> addNews(
         @Valid
-            News news, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult, HttpStatus.NOT_ACCEPTABLE);
-        }
+        @RequestBody
+            News news) {
         newsService.add(news);
         return new ResponseEntity<>(news, HttpStatus.OK);
     }
@@ -54,11 +52,10 @@ public class RestNewsController {
     @PutMapping("/{id}")
     public ResponseEntity updateNews(
         @Valid
-            News news, BindingResult bindingResult,
+        @RequestBody
+            News news,
         @PathVariable("id")
             long id) {
-        if (bindingResult.hasErrors())
-            return new ResponseEntity<>(bindingResult, HttpStatus.NOT_ACCEPTABLE);
         newsService.update(id, news);
         return new ResponseEntity<>(news, HttpStatus.OK);
     }
