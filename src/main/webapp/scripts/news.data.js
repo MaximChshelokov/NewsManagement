@@ -1,15 +1,15 @@
 var app = angular.module('NewsManager', []);
 app.controller('NewsController', ['$scope', 'NewsService', function ($scope, NewsService) {
 
-    $scope.updateUser = function (index_id) {
-        var id = $scope.news_list[index_id].id;
-        NewsService.updateUser(id, $scope.news.title, $scope.news.date, $scope.news.brief, $scope.news.content)
+    $scope.updateNews = function () {
+        NewsService.updateNews($scope.news.id, $scope.news.title, $scope.news.date, $scope.news.brief, $scope.news.content)
             .then(function success(response) {
                       $scope.message = 'User data updated!';
                       $scope.errorMessage = '';
                       $scope.showViewNews();
                   },
                   function error(response) {
+                      $scope.errors = response.data;
                       $scope.errorMessage = 'Error updating news!';
                       $scope.message = '';
                   });

@@ -24,26 +24,26 @@
             <article class="expanded">
                 <fieldset>
                     <form>
-                        <div>
+                        <p>
                             <label for="title"><spring:message code="application.common.title"/></label>
                             <input id="title" ng-model="news.title" />
                             <div ng-if="errors !== null" class="error">{{errors.title}}</div>
-                        </div>
-                        <div>
+                        </p>
+                        <p>
                             <label for="date"><spring:message code="application.common.date"/></label>
                             <input type="date" id="date" ng-model="news.date"/>
                         <div ng-if="errors !== null" class="error">{{errors.date}}</div>
-                        </div>>
-                        <div>
+                        </p>
+                        <p>
                             <label for="brief"><spring:message code="application.common.brief"/></label>
                             <textarea id="brief" cols="60" rows="5" ng-model="news.brief"></textarea><br/>
                         <div ng-if="errors !== null" class="error">{{errors.brief}}</div>
-                        </div>
-                        <div>
+                        </p>
+                        <p>
                             <label for="content"><spring:message code="application.common.content"/></label>
                             <textarea id="content" cols="60" rows="10" ng-model="news.content"></textarea><br/>
                         <div ng-if="errors !== null" class="error">{{errors.content}}</div>
-                        </div>
+                        </p>
                         <div ng-if="news.id === 0">
                             <a ng-click="addNews(news.title,news.date,news.brief,news.content)" class="button">
                                 <spring:message code="application.common.submit"/></a>
