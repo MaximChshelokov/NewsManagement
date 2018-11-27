@@ -14,7 +14,7 @@
         ${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}
     </c:set>
     <spring:url value="/css/styles.css" var="mainCss"/>
-    <spring:url value="/scripts/angular.min.js" var="angular"/>
+    <spring:url value="/scripts/angular.js" var="angular"/>
     <spring:url value="/scripts/news.data.js" var="newsdata"/>
     <link rel="stylesheet" href="${mainCss}" type="text/css"/>
     <script src="${angular}"></script>
@@ -77,10 +77,10 @@
                 <h4><spring:message code="application.common.navigate"/></h4>
                 <ul class="blocklist">
                     <li class="{{form_class}}">
-                        <a ng-click="showAddNewsForm()">Add news</a>
+                        <a ng-click="createNews()">Add news</a>
                     </li>
                     <li class="{{view_class}}">
-                        <a ng-click="showAllNews()">List news</a>
+                        <a ng-click="getAllNews()">List news</a>
                     </li>
                 </ul>
             </li>

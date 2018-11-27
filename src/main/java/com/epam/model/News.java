@@ -14,6 +14,17 @@ public class News {
     private String brief;
     private String content;
 
+    @Override
+    public String toString() {
+        return "News{" +
+               "id=" + id +
+               ", title='" + title + '\'' +
+               ", date=" + date +
+               ", brief='" + brief + '\'' +
+               ", content='" + content + '\'' +
+               '}';
+    }
+
     public long getId() {
         return id;
     }

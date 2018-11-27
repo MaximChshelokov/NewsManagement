@@ -5,10 +5,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
+import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.List;
 
 public class NewsDaoImpl implements NewsDao {
 
@@ -31,7 +31,7 @@ public class NewsDaoImpl implements NewsDao {
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<News> cq = cb.createQuery(News.class);
         Root<News> root = cq.from(News.class);
-        cq.select(root);
+        cq.orderBy(cb.desc(root.get("date")));
         Query<News> query = session.createQuery(cq);
         return query.getResultList();
     }
