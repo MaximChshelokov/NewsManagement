@@ -1,9 +1,11 @@
 var app = angular.module('NewsManager', []);
+
 app.controller('NewsController', ['$scope', 'NewsService', function ($scope, NewsService) {
 
     $scope.updateNews = function () {
-        NewsService.updateNews($scope.news.id, $scope.news.title, $scope.news.date, $scope.news.brief, $scope.news.content)
-            .then(function success(response) {
+        NewsService.updateNews($scope.news.id, $scope.news.title, $scope.news.date, $scope.news.brief,
+                               $scope.news.content)
+            .then(function success() {
                       $scope.message = 'User data updated!';
                       $scope.errorMessage = '';
                       $scope.showViewNews();
@@ -15,8 +17,8 @@ app.controller('NewsController', ['$scope', 'NewsService', function ($scope, New
                   });
     };
 
-    $scope.getNews = function (index_id) {
-        var id = $scope.news_list[index_id].id;
+    $scope.getNews = function (newsId) {
+        var id = newsId;
         NewsService.getNews(id)
             .then(function success(response) {
                       $scope.news = response.data[0];
@@ -58,16 +60,15 @@ app.controller('NewsController', ['$scope', 'NewsService', function ($scope, New
         }
     };
 
-    $scope.deleteNews = function (index_id) {
-        var id = $scope.news_list[index_id].id;
+    $scope.deleteNews = function (id) {
         NewsService.deleteNews(id)
-            .then(function success(response) {
+            .then(function success() {
                       $scope.message = 'News deleted!';
                       $scope.news = null;
                       $scope.errorMessage = '';
                       $scope.getAllNews();
                   },
-                  function error(response) {
+                  function error() {
                       $scope.errorMessage = 'Error deleting news!';
                       $scope.message = '';
                   })
@@ -84,19 +85,34 @@ app.controller('NewsController', ['$scope', 'NewsService', function ($scope, New
                       $scope.errorMessage = '';
                       $scope.showAllNews();
                   },
-                  function error(response) {
+                  function error() {
                       $scope.message = '';
                       $scope.errorMessage = 'Error getting list of news!';
                   });
     };
 
-    $scope.editNews = function (index_id) {
-        $scope.getNews(index_id);
+    $scope.changeLang = function (locale) {
+        NewsService.getLocaleMessages(locale)
+            .then(function success(response) {
+                $scope.messages = response.data;
+                if (locale === 'en') {
+                    $scope.ruClass = '';
+                    $scope.enClass = 'selected';
+                } else {
+                    $scope.ruClass = 'selected';
+                    $scope.enClass = '';
+                }
+            })
+
+    };
+
+    $scope.editNews = function (id) {
+        $scope.getNews(id);
         $scope.showAddNewsForm();
     };
 
-    $scope.viewNews = function (index_id) {
-        $scope.getNews(index_id);
+    $scope.viewNews = function (id) {
+        $scope.getNews(id);
         $scope.showViewNews();
     };
 
@@ -111,6 +127,7 @@ app.controller('NewsController', ['$scope', 'NewsService', function ($scope, New
         $scope.view_visible = false;
         $scope.view_class = '';
         $scope.form_class = 'selected-item';
+        $scope.currentTitle ='application.edit-news.title';
     };
 
     $scope.showAllNews = function () {
@@ -119,6 +136,7 @@ app.controller('NewsController', ['$scope', 'NewsService', function ($scope, New
         $scope.view_visible = false;
         $scope.view_class = 'selected-item';
         $scope.form_class = '';
+        $scope.currentTitle = 'application.news-list.title';
     };
 
     $scope.showViewNews = function () {
@@ -127,9 +145,10 @@ app.controller('NewsController', ['$scope', 'NewsService', function ($scope, New
         $scope.view_visible = true;
         $scope.view_class = '';
         $scope.form_class = '';
-
+        $scope.currentTitle = 'application.add-news.title';
     };
 
+    $scope.changeLang('en');
     $scope.getAllNews();
 
 }]);
@@ -171,6 +190,13 @@ app.service('NewsService', ['$http', function ($http) {
                          method: 'GET',
                          url: 'news'
                      });
+    };
+
+    this.getLocaleMessages = function getLocaleMessages(locale) {
+        return $http({
+                         method: 'GET',
+                         url: 'messages?lang=' + locale
+                     });
     }
 
 }]);
@@ -181,7 +207,7 @@ app.directive('ngConfirmClick', [
             link: function (scope, element, attr) {
                 var msg = attr.ngConfirmClick || "Are you sure?";
                 var clickAction = attr.confirmedClick;
-                element.bind('click', function (event) {
+                element.bind('click', function () {
                     if (window.confirm(msg)) {
                         scope.$eval(clickAction)
                     }
