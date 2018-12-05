@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns:bean="http://www.springframework.org/schema/security"
-       xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-            http://www.springframework.org/schema/beans/spring-beans.xsd
-			http://www.springframework.org/schema/security
-			http://www.springframework.org/schema/security/spring-security.xsd
-            http://www.springframework.org/schema/security ">
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-    <bean:http entry-point-ref="restAuthenticationEntryPoint">
-        <bean:intercept-url pattern="/news/**" method="PUT" access="ROLE_ADMIN"/>
-        <bean:intercept-url pattern="/news" method="POST" access="ROLE_ADMIN"/>
-        <bean:intercept-url pattern="/news/**" method="DELETE" access="ROLE_ADMIN"/>
-
-        <bean:form-login
+    <http auto-config="true"><!--entry-point-ref="restAuthenticationEntryPoint"-->
+        <intercept-url pattern="/news/**" method="PUT" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/news" method="POST" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/news/**" method="DELETE" access="ROLE_ADMIN"/>
+<!--
+        <form-login
                 authentication-success-handler-ref="mySuccessHandler"
                 authentication-failure-handler-ref="myFailureHandler"/>
 
-        <bean:logout/>
-    </bean:http>
-
-    <bean id="mySuccessHandler"
+        <logout/>
+        -->
+    </http>
+<!--
+    <beans:bean id="mySuccessHandler"
           class="com.epam.security.AuthorizationSuccessHandler"/>
-    <bean id="myFailureHandler" class=
+    <beans:bean id="myFailureHandler" class=
             "org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler"/>
-    <bean id="restAuthenticationEntryPoint" class="com.epam.security.RestAuthenticationEntryPoint"/>
-
-    <bean:authentication-manager alias="authenticationManager">
-        <bean:authentication-provider>
-            <bean:user-service>
-                <bean:user name="admin" password="adminPass" authorities="ROLE_ADMIN"/>
-                <bean:user name="user" password="userPass" authorities="ROLE_USER"/>
-            </bean:user-service>
-        </bean:authentication-provider>
-    </bean:authentication-manager>
-</beans>
+    <beans:bean id="restAuthenticationEntryPoint" class="com.epam.security.RestAuthenticationEntryPoint"/>
+-->
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider>
+            <user-service>
+                <user name="admin" password="adminPass" authorities="ROLE_ADMIN"/>
+                <user name="user" password="userPass" authorities="ROLE_USER"/>
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>
