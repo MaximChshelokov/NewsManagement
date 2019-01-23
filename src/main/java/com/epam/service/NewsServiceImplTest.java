@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -53,7 +53,7 @@ public class NewsServiceImplTest {
 
     @Test
     public void getAll() {
-        List<News> newsList = Arrays.asList(new News[]{news});
+        List<News> newsList = Collections.singletonList(news);
         when(dao.getAll()).thenReturn(newsList);
         List<News> result = service.getAll();
         verify(dao).getAll();
