@@ -133,6 +133,7 @@
 
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test</testSourceDirectory>
         <finalName>testapp</finalName>
         <plugins>
             <plugin>
